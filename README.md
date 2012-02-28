@@ -16,18 +16,16 @@ This JavaScript module switches the product image when the variant is switched (
 
 * add new asset shopify.variantimages.js
 * include the script in your layout template
+
 ```html
-
   {{ 'shopify.variantimages.js' | asset_url | script_tag }} 
-
 ```
 
 * copy this right before the "new Shopify.OptionSelectors(" line.
 
 ```html
-    $(function() {
+$(function() {
         
-
 	{% for img in product.images %}
         Shopify.VariantImages.addImage('{{ img | product_img_url: 'small' }}', '{{ img | product_img_url: 'medium' }}');
         {% endfor %}
@@ -39,7 +37,7 @@ This JavaScript module switches the product image when the variant is switched (
         Shopify.VariantImages.init({});
 
 
-	
+	// DO NOT ADD THIS LINE... find it, and copy the preceding code before it
 	new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
       
 ```
