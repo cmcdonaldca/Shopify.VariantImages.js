@@ -95,19 +95,25 @@ Shopify.VariantImages = (function($){
     };
 
     variantImages.findVariantFromImage = function(imageURL) {
+        var matchedVariantID = -1;
+        var maxMatchCount = 0;
+        
         for (var variantID in _pVariants) {
-            var hasNoMatch = false;
+            var matchCount = 0;
             for (var i=0; i<_pVariants[variantID].length; ++i) {
-                if (imageURL.indexOf(_pVariants[variantID][i].toLowerCase()) < 0) {
-                    hasNoMatch = true;
+                if (imageURL.indexOf(_pVariants[variantID][i].toLowerCase()) > 0) {
+                    matchCount++;
                 }
             }
             
-            if (!hasNoMatch) {
-                //foundVariantID = variantID;
-                return variantID;
+            if (matchCount > maxMatchCount) {
+                matchedVariantID = variantID;
+                maxMatchCount = matchCount;
             }
         }
+        
+        if (matchedVariantID > 0)
+            return matchedVariantID;
         return null;
     };
 
